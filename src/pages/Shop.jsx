@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-// import { dummyBooks as books } from '../assets/data';
+import { dummyBooks as books } from '../assets/data';
 import Item from '../components/Item';
 
 const API_URL = 'http://localhost:3000/products';
@@ -17,23 +17,11 @@ const Shop = () => {
     const booksPerPage = 8;
 
 
-    useEffect(() => {
-        const fetchBooks = async () => {
-            try {
-                const response = await fetch(API_URL);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch products');
-                }
-                const data = await response.json();
-                setBooks(data); 
-            } catch (error) {
-                console.error("Fetching error:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchBooks();
-    }, []);
+useEffect(() => {
+  setBooks(dummyBooks);
+  setLoading(false);
+}, []);
+
 
     useEffect(() => {
     setCurrentPage(1);

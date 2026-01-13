@@ -80,6 +80,7 @@
 
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { useAuth } from './AuthContext';
+import { dummyBooks } from "../assets/data";
 
 export const CartContext = createContext();
 
@@ -89,25 +90,10 @@ export const CartProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [books, setBooks] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:3000/products')
-      .then((res) => res.json())
-      .then((data) => setBooks(data));
-  }, []);
+ useEffect(() => {
+  setBooks(dummyBooks);
+}, []);
 
-  useEffect(() => {
-    if (user) {
-      fetch(`http://localhost:3000/users/${user.id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setCart(data.cart || []);
-          setWishlist(data.wishlist || []);
-        });
-    } else {
-      setCart([]);
-      setWishlist([]);
-    }
-  }, [user]);
 
   const saveCartToUser = async (newCart) => {
     if (user) {
