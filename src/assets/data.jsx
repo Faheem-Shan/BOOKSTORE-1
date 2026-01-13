@@ -10,16 +10,16 @@
 // import adventure from "./images/adventure.png"; 
 // import kids from "./images/kids.png";
 
-import book_1 from "./images/book_1.png"; 
-import book_2 from "./images/book_2.jpg"; 
-import book_3 from "./images/book_3.jpeg"; 
-import book_4 from "./images/book_4.jpeg"; 
-import book_5 from "./images/book_5.png"; 
-import book_6 from "./images/book_6.jpeg"; 
-import book_7 from "./images/book_7.jpg"; 
-import book_8 from "./images/book_8.jpg"; 
-import book_9 from "./images/book_9.png"; 
-import book_10 from "./images/book_10.jpg"; 
+import book_1 from "/images/book_1.png"; 
+import book_2 from "/images/book_2.jpg"; 
+import book_3 from "/images/book_3.jpeg"; 
+import book_4 from "/images/book_4.jpeg"; 
+import book_5 from "/images/book_5.png"; 
+import book_6 from "/images/book_6.jpeg"; 
+import book_7 from "/images/book_7.jpg"; 
+import book_8 from "/images/book_8.jpg"; 
+import book_9 from "/images/book_9.png"; 
+import book_10 from "/images/book_10.jpg"; 
 
 
 export const dummyBooks = [
