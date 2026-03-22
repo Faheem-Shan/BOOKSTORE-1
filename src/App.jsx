@@ -87,7 +87,8 @@ import AdminDashboard from './Admin/AdminDashboard';
 import AdminCategoryList from './Admin/AdminCategoryList';
 import AdminUserList from './Admin/AdminUserList';
 import AdminOrderStats from './Admin/AdminOrderStats';
-
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import MainLayout from './components/Mainlayout';
 
 
@@ -106,9 +107,13 @@ const App = () => {
           {/* -------------------- PUBLIC ROUTES -------------------- */}
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/shop/:category" element={<CategoryShop />} />
             <Route path="/shop/:category/:id" element={<ProductDetails />} />
+            
             <Route path="/contact" element={<Contact />} />
             {/* <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} /> */}
@@ -137,7 +142,7 @@ const App = () => {
               <Route path='categories' element={<AdminCategoryList />} />
               <Route path="users" element={<AdminUserList />} />
               <Route path="order-stats" element={<AdminOrderStats />} />
-
+              
             </Route>
           </Route>
 

@@ -15,7 +15,7 @@ import book_2 from "/images/book_2.jpg";
 import book_3 from "/images/book_3.jpeg"; 
 import book_4 from "/images/book_4.jpeg"; 
 import book_5 from "/images/book_5.png"; 
-import book_6 from "/images/book_6.jpeg"; 
+import book_6 from "./images/book_6.jpeg"; 
 import book_7 from "/images/book_7.jpg"; 
 import book_8 from "/images/book_8.jpg"; 
 import book_9 from "/images/book_9.png"; 

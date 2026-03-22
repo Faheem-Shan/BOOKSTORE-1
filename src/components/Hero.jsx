@@ -191,25 +191,119 @@
 
 // export default Hero;
 
-import React, { useContext, useEffect, useState } from 'react';
+// import React, { useContext, useEffect, useState } from 'react';
+// import bg from "../assets/images/bg.jpg";
+// import bgHero from "../assets/images/bg-hero.png";
+// import { FaArrowRight } from 'react-icons/fa6';
+// import { Link } from "react-router-dom";
+// import Item from './Item'; // Assuming Item.jsx is in the same directory
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import 'swiper/css';
+// import { Autoplay } from 'swiper/modules';
+// import { CartContext } from '../context/CartContext';
+
+// const Hero = () => {
+//     const [popularBooks, setPopularBooks] = useState([]);
+//     const { books } = useContext(CartContext);
+
+//     // Filter books to find the first 6 marked as popular
+//     useEffect(() => {
+//         if (books && books.length > 0) {
+//             const data = books.filter((item) => item.popular);
+//             setPopularBooks(data.slice(0, 6));
+//         } else {
+//             setPopularBooks([]);
+//         }
+//     }, [books]);
+
+//     return (
+//         <section className='max-padd-container flex flex-col lg:flex-row gap-6 py-8 lg:py-16 min-h-[600px] lg:min-h-[700px] mt-16'>
+            
+//             {/* LEFT SIDE: Hero Content */}
+            
+//             <div className="lg:w-7/12 w-full bg-cover bg-center bg-no-repeat rounded-2xl" style={{ backgroundImage: `url(${bg})` }} >
+//                 <div className='max-padd-container flex flex-col h-full justify-center pt-8'>
+//                     <h3 className='bold-24 text-secondary font-thin'>Explore Books You'll Love</h3>
+//                     <h1 className='h1 max-w-[699px] !font-[800] leading-none'>Find Your Next Book</h1>
+//                     <h2 className='capitalize h2 tracking-wider'>Up to 40% Off This Week</h2>
+//                     <p className='max-w-xl pt-5 text-gray-700'>Discover the joy of reading with our carefully curated collection of books. Whether you're searching for the latest bestsellers, timeless classics, or hidden gems, we've got something for every reader. Enjoy fast delivery, secure checkout and unbeatable prices—your next great read is just a click away!</p>
+                    
+//                     {/* BUTTON */}
+//                     <div className='flex mt-4'>
+//                         <Link to={'/shop'} className='bg-white text-xs font-medium pl-6 rounded-full flexCenter gap-x-6 group'>
+//                             Check our latest Stock
+//                             <FaArrowRight className='bg-secondary text-white rounded-full h-11 w-11 p-3 m-[3px] border border-white group-hover:bg-primary group-hover:text-black transition-all duration-500' />
+//                         </Link>
+//                     </div>
+//                 </div>
+//             </div>
+            
+//             {/* RIGHT SIDE: Popular books swiper */}
+           
+//             <div className='hidden lg:block lg:w-4/12 w-full bg-primary rounded-2xl bg-center bg-cover bg-no-repeat flex justify-center items-center' style={{ backgroundImage: `url(${bgHero})` }}>
+//                 <div className="w-full flex justify-center px-20 py-30">
+                    
+//                     {/* CONTAINER */}
+                  
+//                     <div className="w-full">
+//                         {popularBooks.length > 0 ? (
+//                            <Swiper
+//                                 autoplay={{
+//                                     delay: 4000,
+//                                     disableOnInteraction: false,
+//                                 }}
+//                                 breakpoints={{
+//                                     355: {
+//                                         slidesPerView: 1,
+//                                         spaceBetween: 0,
+//                                     },
+//                                 }}
+//                                 modules={[Autoplay]} 
+                                
+//                                 className='h-[400px] w-full' 
+//                             >
+//                                 {
+//                                     popularBooks.map((book) => (
+//                                         <SwiperSlide key={book.id}>
+//                                             <Item book={book} fromHero={true} />
+//                                         </SwiperSlide>
+//                                     ))
+//                                 }
+//                             </Swiper>
+//                         ) : (
+//                             <div className="flex justify-center items-center h-[400px] text-white">
+//                                 {!books || books.length === 0 ? "Loading popular books..." : "No popular books available."}
+//                             </div>
+//                         )}
+//                     </div>
+//                 </div>
+//             </div>
+//         </section>
+//     )
+// }
+
+// export default Hero;
+
+import React, { useEffect, useState } from 'react'; 
 import bg from "../assets/images/bg.jpg";
 import bgHero from "../assets/images/bg-hero.png";
 import { FaArrowRight } from 'react-icons/fa6';
 import { Link } from "react-router-dom";
-import Item from './Item'; // Assuming Item.jsx is in the same directory
+import Item from './Item';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
-import { CartContext } from '../context/CartContext';
 
-const Hero = () => {
+
+
+const Hero = ({ books = [] }) => {  // ✅ receive books as prop + default []
     const [popularBooks, setPopularBooks] = useState([]);
-    const { books } = useContext(CartContext);
 
-    // Filter books to find the first 6 marked as popular
+    // ✅ SAFE filtering (no crash if books is empty)
     useEffect(() => {
-        if (books && books.length > 0) {
-            const data = books.filter((item) => item.popular);
+        if (Array.isArray(books) && books.length > 0) {
+            const data = books.filter((item) => item.popular === true);
             setPopularBooks(data.slice(0, 6));
         } else {
             setPopularBooks([]);
@@ -219,67 +313,62 @@ const Hero = () => {
     return (
         <section className='max-padd-container flex flex-col lg:flex-row gap-6 py-8 lg:py-16 min-h-[600px] lg:min-h-[700px] mt-16'>
             
-            {/* LEFT SIDE: Hero Content */}
-            
-            <div className="lg:w-7/12 w-full bg-cover bg-center bg-no-repeat rounded-2xl" style={{ backgroundImage: `url(${bg})` }} >
+            {/* LEFT SIDE: Hero Content (UNCHANGED) */}
+            <div
+              className="lg:w-7/12 w-full bg-cover bg-center bg-no-repeat rounded-2xl"
+              style={{ backgroundImage: `url(${bg})` }}
+            >
                 <div className='max-padd-container flex flex-col h-full justify-center pt-8'>
                     <h3 className='bold-24 text-secondary font-thin'>Explore Books You'll Love</h3>
                     <h1 className='h1 max-w-[699px] !font-[800] leading-none'>Find Your Next Book</h1>
                     <h2 className='capitalize h2 tracking-wider'>Up to 40% Off This Week</h2>
-                    <p className='max-w-xl pt-5 text-gray-700'>Discover the joy of reading with our carefully curated collection of books. Whether you're searching for the latest bestsellers, timeless classics, or hidden gems, we've got something for every reader. Enjoy fast delivery, secure checkout and unbeatable prices—your next great read is just a click away!</p>
-                    
-                    {/* BUTTON */}
+
+                    <p className='max-w-xl pt-5 text-gray-700'>
+                      Discover the joy of reading with our carefully curated collection of books.
+                    </p>
+
                     <div className='flex mt-4'>
-                        <Link to={'/shop'} className='bg-white text-xs font-medium pl-6 rounded-full flexCenter gap-x-6 group'>
+                        <Link
+                          to="/shop"
+                          className='bg-white text-xs font-medium pl-6 rounded-full flexCenter gap-x-6 group'
+                        >
                             Check our latest Stock
-                            <FaArrowRight className='bg-secondary text-white rounded-full h-11 w-11 p-3 m-[3px] border border-white group-hover:bg-primary group-hover:text-black transition-all duration-500' />
+                            <FaArrowRight className='bg-secondary text-white rounded-full h-11 w-11 p-3 m-[3px]' />
                         </Link>
                     </div>
                 </div>
             </div>
             
             {/* RIGHT SIDE: Popular books swiper */}
-           
-            <div className='hidden lg:block lg:w-4/12 w-full bg-primary rounded-2xl bg-center bg-cover bg-no-repeat flex justify-center items-center' style={{ backgroundImage: `url(${bgHero})` }}>
+            <div
+              className='hidden lg:block lg:w-4/12 bg-primary rounded-2xl bg-cover bg-center flex justify-center items-center'
+              style={{ backgroundImage: `url(${bgHero})` }}
+            >
                 <div className="w-full flex justify-center px-20 py-30">
-                    
-                    {/* CONTAINER */}
-                  
                     <div className="w-full">
                         {popularBooks.length > 0 ? (
-                           <Swiper
-                                autoplay={{
-                                    delay: 4000,
-                                    disableOnInteraction: false,
-                                }}
-                                breakpoints={{
-                                    355: {
-                                        slidesPerView: 1,
-                                        spaceBetween: 0,
-                                    },
-                                }}
-                                modules={[Autoplay]} 
-                                
-                                className='h-[400px] w-full' 
+                            <Swiper
+                                autoplay={{ delay: 4000, disableOnInteraction: false }}
+                                modules={[Autoplay]}
+                                slidesPerView={1}
+                                className='h-[400px] w-full'
                             >
-                                {
-                                    popularBooks.map((book) => (
-                                        <SwiperSlide key={book.id}>
-                                            <Item book={book} fromHero={true} />
-                                        </SwiperSlide>
-                                    ))
-                                }
+                                {popularBooks.map((book) => (
+                                    <SwiperSlide key={book.id}>
+                                        <Item book={book} fromHero />
+                                    </SwiperSlide>
+                                ))}
                             </Swiper>
                         ) : (
                             <div className="flex justify-center items-center h-[400px] text-white">
-                                {!books || books.length === 0 ? "Loading popular books..." : "No popular books available."}
+                                Loading popular books...
                             </div>
                         )}
                     </div>
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
 
 export default Hero;
