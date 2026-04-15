@@ -178,9 +178,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # 2. Security Settings (Pulled from .env where possible)
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = True 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+SECRET_KEY = os.getenv('SECRET_KEY','fallback-secret-key')
+DEBUG = False 
+ALLOWED_HOSTS = ['.onrender.com']
 
 # 3. Application Definition
 INSTALLED_APPS = [
@@ -210,6 +210,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -258,6 +259,8 @@ USE_TZ = True
 
 # 6. Static and Media Files
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
