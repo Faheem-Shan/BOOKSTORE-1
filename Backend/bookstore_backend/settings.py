@@ -253,7 +253,7 @@ USE_I18N = True
 USE_TZ = True
 
 # 6. Static and Media Files
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
